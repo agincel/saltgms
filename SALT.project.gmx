@@ -9,13 +9,25 @@
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_test_circle</sprite>
+    <sprite>sprites\spr_notelane</sprite>
+    <sprite>sprites\spr_note</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\createNote.gml</script>
+  </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt_impact</font>
+  </fonts>
   <objects name="objects">
-    <object>objects\obj_test_sound</object>
+    <object>objects\obj_audio_events</object>
+    <object>objects\obj_notelane</object>
+    <object>objects\obj_note</object>
+    <object>objects\obj_combo_view</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_init</room>
     <room>rooms\rm_test</room>
   </rooms>
   <help>

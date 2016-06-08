@@ -1,0 +1,10 @@
+beats per minute = 162
+seconds per minute = 60
+
+beats per second (bps) = 162 / 60
+
+distance to travel over time of one beat: 930px
+
+time of one beat; seconds per beat (spb): 60 / 162
+
+930 / (60 / 162)
