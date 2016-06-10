@@ -3,6 +3,25 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="1" name="datafiles">
+    <datafile>
+      <name>song1.txt</name>
+      <exists>-1</exists>
+      <size>0</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>615726525288686</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>song1.txt</filename>
+    </datafile>
+  </datafiles>
   <NewExtensions/>
   <sounds name="sound">
     <sound>sound\snd_song_tesla</sound>
@@ -25,10 +44,12 @@
     <object>objects\obj_notelane</object>
     <object>objects\obj_note</object>
     <object>objects\obj_combo_view</object>
+    <object>objects\obj_chartHandler</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_test</room>
+    <room>rooms\room_writeSong</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

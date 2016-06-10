@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>///Create
 
+laneID = 0;
+
 beatThreshold = (1 / global.tempo * 60) / 4;
 numBeats = 0;
 
@@ -34,7 +36,35 @@ hitRange = 75;
 
 myIndex = 0;
 
-laneKey = ord('A');
+laneKeys[0] = ord('D');
+laneKeys[1] = ord('F');
+laneKeys[2] = ord('J');
+laneKeys[3] = ord('K');
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///CreateNoteWithDelay
+global.queuedNote[laneID] = false;
+createNote(x, y);
 </string>
           </argument>
         </arguments>
@@ -57,34 +87,13 @@ laneKey = ord('A');
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Beat Sync
+            <string>///Queue Notes
 
-if ((audio_sound_get_track_position(global.song) - (numBeats * beatThreshold)) &gt;= beatThreshold)
+if global.queuedNote[laneID]
 {
-    //16th note beat
-    if numBeats % 4 == 0
-    {
-     //quarter note
-        if floor(random(3)) == 0
-            createNote(x, y);
-    }
-    else if numBeats % 4 == 1 or numBeats % 4 = 3
-    {
-        //sixteenth notes
-        
-    }
-    else if numBeats % 4 == 2
-    {
-        //eighth notes
-        if floor(random(6)) == 0
-            createNote(x, y);
-    }
-    numBeats += 1;
-}
-else if ((audio_sound_get_track_position(global.song) - (numBeats * beatThreshold)) &lt; 0)
-{
-    //song looped
-    numBeats = 0;
+    //alarm[0] = 5;
+    global.queuedNote[laneID] = false;
+    createNote(x, y);
 }
 </string>
           </argument>
@@ -138,11 +147,11 @@ with obj_note
             <kind>1</kind>
             <string>///Input
 
-if keyboard_check_pressed(laneKey)
+if keyboard_check_pressed(laneKeys[laneID])
 {
     event_user(0);
 }
-else if keyboard_check_released(laneKey)
+else if keyboard_check_released(laneKeys[laneID])
 {
     event_user(1);
 }
@@ -248,11 +257,11 @@ with obj_note
 {
     if x == other.x
     {
-      if abs(y - other.y) &lt; other.hitRange //successfully got note
-      {
-        global.combo += 1;
-        instance_destroy();
-      }
+        if abs(y - other.y) &lt; other.hitRange //successfully got note
+        {
+            global.combo += 1;
+            instance_destroy();
+        }
     }
 }
 </string>
