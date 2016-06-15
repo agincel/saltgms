@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="1" name="datafiles">
+  <datafiles number="2" name="datafiles">
     <datafile>
       <name>song1.txt</name>
       <exists>-1</exists>
@@ -25,6 +25,7 @@
   <NewExtensions/>
   <sounds name="sound">
     <sound>sound\snd_song_tesla</sound>
+    <sound>sound\snd_song_tesla_60</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_test_circle</sprite>
@@ -49,7 +50,6 @@
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_test</room>
-    <room>rooms\room_writeSong</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

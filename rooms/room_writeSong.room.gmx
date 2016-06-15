@@ -10,7 +10,7 @@
   <persistent>0</persistent>
   <colour>27242</colour>
   <showcolour>-1</showcolour>
-  <code></code>
+  <code>global.isWriting = true;</code>
   <enableViews>-1</enableViews>
   <clearViewBackground>0</clearViewBackground>
   <clearDisplayBuffer>-1</clearDisplayBuffer>

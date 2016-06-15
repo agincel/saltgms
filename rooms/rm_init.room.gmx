@@ -6,13 +6,16 @@
   <vsnap>32</vsnap>
   <hsnap>32</hsnap>
   <isometric>0</isometric>
-  <speed>60</speed>
+  <speed>120</speed>
   <persistent>0</persistent>
   <colour>0</colour>
   <showcolour>-1</showcolour>
   <code>global.combo = 0;
-global.song = audio_play_sound(snd_song_tesla, 0, true);
+global.song = audio_play_sound(snd_song_tesla, 0, false);
+audio_pause_sound(global.song);
 global.tempo = 162;
+
+global.isWriting = false;
 
 room_goto_next();</code>
   <enableViews>-1</enableViews>

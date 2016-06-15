@@ -27,11 +27,29 @@
             <kind>1</kind>
             <string>///Create
 
-//load song
-loadedSong = file_text_open_read("song1.txt");
-file_text_read_string(loadedSong); //get through title
-global.tempo = file_text_read_real(loadedSong); //load tempo
+show_message("SALT");
 
+if global.isWriting
+{
+    if !directory_exists(working_directory + "\Songs\")
+        directory_create(working_directory);
+    writingSong = file_text_open_write(working_directory + "\Songs\newSong.txt");
+    show_debug_message(writingSong);
+    file_text_write_string(writingSong, get_string("Song Name?", ""));
+    file_text_writeln(writingSong);
+    global.tempo = real(get_string("Tempo?", ""));
+    file_text_write_real(writingSong, global.tempo);
+    file_text_writeln(writingSong);
+}
+else
+{
+    //load song
+    loadedSong = file_text_open_read("song1.txt");
+    file_text_read_string(loadedSong); //get through title
+    global.tempo = file_text_read_real(loadedSong); //load tempo
+}
+
+audio_resume_sound(global.song);
 
 beatThreshold = (1 / global.tempo * 60) / 4;
 numBeats = 0;
@@ -40,6 +58,8 @@ global.queuedNote[0] = false;
 global.queuedNote[1] = false;
 global.queuedNote[2] = false;
 global.queuedNote[3] = false;
+
+
 </string>
           </argument>
         </arguments>
@@ -65,36 +85,58 @@ global.queuedNote[3] = false;
             <string>///Beat Sync
 
 if ((audio_sound_get_track_position(global.song) - (numBeats * beatThreshold)) &gt;= beatThreshold)
-{
-    /*
-    //16th note beat
-    if numBeats % 4 == 0
+{   
+    if !global.isWriting
     {
-        //quarter note
-        global.queuedNote[floor(random(4))] = true;
-        global.queuedNote[floor(random(4))] = true;
+        for(var i = 0; i &lt; 4; i++)
+        {
+            if file_text_read_real(loadedSong)
+            {
+                with obj_notelane
+                {
+                    if laneID == i
+                        createNote(x, y);
+                }
+            }
+        }
     }
-    else if numBeats % 4 == 1 or numBeats % 4 = 3
+    else
     {
-        //sixteenth notes
-        
+        var stringToWrite = "";
+        for(var i = 0; i &lt; 4; i++)
+        {
+            with obj_notelane
+            {
+                if myIndex == 1 and laneID == i
+                {
+                    stringToWrite += "1 ";
+                    myIndex = 0;
+                }
+                else if laneID == i
+                {
+                    stringToWrite += "0 ";
+                }
+            }
+        }
+        file_text_write_string(writingSong, stringToWrite);
+        file_text_writeln(writingSong);
     }
-    else if numBeats % 4 == 2
-    {
-        //eighth notes
-    }*/
-    
-    global.queuedNote[0] = file_text_read_real(loadedSong);
-    global.queuedNote[1] = file_text_read_real(loadedSong);
-    global.queuedNote[2] = file_text_read_real(loadedSong);
-    global.queuedNote[3] = file_text_read_real(loadedSong);
     
     numBeats += 1;
+    if global.isWriting &amp;&amp; numBeats % 4 == 0
+    {
+        //file_text_writeln(writingSong);
+    }
 }
 else if ((audio_sound_get_track_position(global.song) - (numBeats * beatThreshold)) &lt; 0)
 {
     //song looped
     numBeats = 0;
+    if global.isWriting
+    {
+        file_text_close(writingSong);
+        game_end();
+    }
 }
 </string>
           </argument>
