@@ -283,7 +283,8 @@ with obj_note
         if abs(y - other.y) &lt; other.hitRange //successfully got note
         {
             global.combo += 1;
-            instance_destroy();
+            alarm[0] = 1;
+            noteSpeed = 0;
         }
     }
 }
